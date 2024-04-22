@@ -1,0 +1,60 @@
+{
+  "tasks": [
+    {
+      "taskName": "Angular",
+      "taskDescription": "Create crud app",
+      "date": "2024-04-01T21:00:00.000Z",
+      "status": "Pending",
+      "id": 1
+    },
+    {
+      "taskName": "Tables",
+      "taskDescription": "Create crud app tables",
+      "date": "2024-03-31T21:00:00.000Z",
+      "status": "Pending",
+      "id": 2
+    },
+    {
+      "taskName": "Task",
+      "taskDescription": "task2",
+      "date": "2024-04-08T21:00:00.000Z",
+      "status": "Cancelled",
+      "id": 5
+    },
+    {
+      "taskName": "Tabs",
+      "taskDescription": "Create tabs for angular table on task manager",
+      "date": "2024-04-26T21:00:00.000Z",
+      "status": "Completed",
+      "id": 6
+    },
+    {
+      "taskName": "CRUD",
+      "taskDescription": "New app",
+      "date": "2024-04-19T21:00:00.000Z",
+      "status": "Completed",
+      "id": 7
+    },
+    {
+      "taskName": "CRUD",
+      "taskDescription": "Update app",
+      "date": "2024-04-27T21:00:00.000Z",
+      "status": "Pending",
+      "id": 8
+    },
+    {
+      "taskName": "Tables",
+      "taskDescription": "Add tabs",
+      "date": "2024-04-11T21:00:00.000Z",
+      "status": "Cancelled",
+      "id": 9
+    },
+    {
+      "taskName": "crud",
+      "taskDescription": "new crud",
+      "date": "2024-04-29T21:00:00.000Z",
+      "status": "Completed",
+      "id": 10
+    }
+  ]
+}

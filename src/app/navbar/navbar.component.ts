@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskCreateComponent } from '../task-create/task-create.component';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+  constructor(private dialog: MatDialog){}
+
+  openTasksForm(){
+    this.dialog.open(TaskCreateComponent);
+  }
 }

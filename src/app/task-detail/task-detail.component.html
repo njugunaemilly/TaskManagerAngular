@@ -1,1 +1,25 @@
-<p>task-detail works!</p>
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Task Details</mat-card-title>
+     
+    </mat-card-header>
+    <mat-card-content >
+        Task Name:
+        <h3>{{ task.taskName }}</h3>
+        Task Description:
+        <p>{{ task.taskDescription }}</p>
+      
+        Status:
+        <p>{{ task.status }}</p>
+      
+        Date:
+        <p>{{ task.date }}</p>
+     
+    </mat-card-content>
+    <mat-card-actions class="actions">
+        <button class="close-btn" type="button" [mat-dialog-close]="false">
+            Close
+          </button>
+    </mat-card-actions>
+  </mat-card>
+  
