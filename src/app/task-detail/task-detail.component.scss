@@ -1,0 +1,34 @@
+.title{
+    text-align: center;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-bottom: solid 1px #413f3f;
+}
+.details-card{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 80px;
+    justify-content: center;
+   
+    
+}
+
+.btn-div{
+    border-top: solid  1px #413f3f;
+    margin-top: 12px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actions{
+    justify-content: center;
+}
+.close-btn{
+    padding: 8px 32px;
+    border: none;
+    border-radius: 2px;
+    background: #94b3f7;
+}

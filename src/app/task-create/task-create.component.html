@@ -1,1 +1,52 @@
-<p>task-create works!</p>
+<div mat-dialog-title>
+    {{data ? 'Update': 'Add'}} Task
+</div>
+<form [formGroup]="tasksForm" (ngSubmit)="onSubmit()"> 
+    <div mat-dialog-content class="content">
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" placeholder="Task Name" formControlName="taskName"/>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <input matInput type="text" placeholder="Task Description" formControlName="taskDescription"/>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" formControlName="date"/>
+        <input matEndDate placeholder="End date" formControlName="date" />
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </div>
+
+  <div class="row">
+    <h4>Task Status</h4>
+    <mat-form-field appearance="outline">
+      <mat-label>Task Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option *ngFor="let status of taskStatus" [value]="status" >
+                   
+          {{ status }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions class="actions">
+  <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+  <button mat-raised-button type="submit">{{data ? 'Update' : 'Save'}}</button>
+</div>
+</form>
+
+

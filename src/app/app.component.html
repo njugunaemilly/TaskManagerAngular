@@ -1,7 +1,292 @@
-<app-navbar></app-navbar>
-<app-task-create></app-task-create>
-<app-task-detail></app-task-detail>
-<app-task-list></app-task-list>
-<app-task-update></app-task-update>
+<nav class="navbar">
+  <a class="navbar-brand" href="#"> TASK MANAGER </a>
+  <button class="nav-button" (click)="openTasksForm()">
+    <img src="assets/my-icons/plus.svg" alt="" class="nav-btn-icon" />
+    New Task
+  </button>
+</nav>
+<div class="content-container">
+  <app-sidebar (filtersApplied)="applyFilters($event)"></app-sidebar>
+  <mat-tab-group>
+    <mat-tab label="All Tasks">
+      <div class="table-body">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <!-- Task Name Column -->
+          <ng-container matColumnDef="taskName">
+            <th mat-header-cell *matHeaderCellDef>Task Name</th>
+            <td mat-cell *matCellDef="let task">{{ task.taskName }}</td>
+          </ng-container>
 
-<router-outlet></router-outlet>
+          <!-- Task Description Column -->
+          <ng-container matColumnDef="taskDescription">
+            <th mat-header-cell *matHeaderCellDef>Task Description</th>
+            <td mat-cell *matCellDef="let task">{{ task.taskDescription }}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let task">
+              <span [ngSwitch]="task.status">
+                <span *ngSwitchCase="'Pending'" class="text-primary">{{
+                  task.status
+                }}</span>
+                <span *ngSwitchCase="'Completed'" class="text-success">{{
+                  task.status
+                }}</span>
+                <span *ngSwitchCase="'Cancelled'" class="text-danger">{{
+                  task.status
+                }}</span>
+              </span>
+              <!-- {{task.status}} -->
+            </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let task">{{ task.date }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let task">
+              <button mat-icon-button (click)="viewTask(task.id)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="updateTask(task)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteTask(task.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </mat-tab>
+
+    <!-- Pending Tasks Tab -->
+    <mat-tab label="Pending Tasks">
+      <div class="table-body">
+        <table mat-table [dataSource]="pendingTasks" class="mat-elevation-z8">
+          <!-- Task Name Column -->
+          <ng-container matColumnDef="taskName">
+            <th mat-header-cell *matHeaderCellDef>Task Name</th>
+            <td mat-cell *matCellDef="let task">{{ task.taskName }}</td>
+          </ng-container>
+
+          <!-- Task Description Column -->
+          <ng-container matColumnDef="taskDescription">
+            <th mat-header-cell *matHeaderCellDef>Task Description</th>
+            <td mat-cell *matCellDef="let task">{{ task.taskDescription }}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let task">
+              <span [ngSwitch]="task.status">
+                <span *ngSwitchCase="'Pending'" class="text-primary">{{
+                  task.status
+                }}</span>
+                <span *ngSwitchCase="'Completed'" class="text-success">{{
+                  task.status
+                }}</span>
+                <span *ngSwitchCase="'Cancelled'" class="text-danger">{{
+                  task.status
+                }}</span>
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let task">{{ task.date }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let task">
+              <button mat-icon-button (click)="viewTask(task.id)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="updateTask(task)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteTask(task.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </mat-tab>
+    
+
+    <!-- Completed Tasks Tab -->
+    <mat-tab label="Completed Tasks">
+      <div class="table-body">
+        <table mat-table [dataSource]="completedTasks" class="mat-elevation-z8">
+          <!-- Task Name Column -->
+          <ng-container matColumnDef="taskName">
+            <th mat-header-cell *matHeaderCellDef>Task Name</th>
+            <td mat-cell *matCellDef="let task">{{ task.taskName }}</td>
+          </ng-container>
+
+          <!-- Task Description Column -->
+          <ng-container matColumnDef="taskDescription">
+            <th mat-header-cell *matHeaderCellDef>Task Description</th>
+            <td mat-cell *matCellDef="let task">{{ task.taskDescription }}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let task">
+              <span [ngSwitch]="task.status">
+                <span *ngSwitchCase="'Pending'" class="text-primary">{{
+                  task.status
+                }}</span>
+                <span *ngSwitchCase="'Completed'" class="text-success">{{
+                  task.status
+                }}</span>
+                <span *ngSwitchCase="'Cancelled'" class="text-danger">{{
+                  task.status
+                }}</span>
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let task">{{ task.date }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let task">
+              <button mat-icon-button (click)="viewTask(task.id)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="updateTask(task)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteTask(task.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </mat-tab>
+
+    <!-- Cancelled Tasks Tab -->
+    <mat-tab label="Cancelled Tasks">
+      <div class="table-body">
+        <table mat-table [dataSource]="cancelledTasks" class="mat-elevation-z8">
+          <!-- Task Name Column -->
+          <ng-container matColumnDef="taskName">
+            <th mat-header-cell *matHeaderCellDef>Task Name</th>
+            <td mat-cell *matCellDef="let task">{{ task.taskName }}</td>
+          </ng-container>
+
+          <!-- Task Description Column -->
+          <ng-container matColumnDef="taskDescription">
+            <th mat-header-cell *matHeaderCellDef>Task Description</th>
+            <td mat-cell *matCellDef="let task">{{ task.taskDescription }}</td>
+          </ng-container>
+
+          <!-- Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>Status</th>
+            <td mat-cell *matCellDef="let task">
+              <span [ngSwitch]="task.status">
+                <span *ngSwitchCase="'Pending'" class="text-primary">{{
+                  task.status
+                }}</span>
+                <span *ngSwitchCase="'Completed'" class="text-success">{{
+                  task.status
+                }}</span>
+                <span *ngSwitchCase="'Cancelled'" class="text-danger">{{
+                  task.status
+                }}</span>
+              </span>
+            </td>
+          </ng-container>
+
+          <!-- Date Column -->
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Date</th>
+            <td mat-cell *matCellDef="let task">{{ task.date }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let task">
+              <button mat-icon-button (click)="viewTask(task.id)">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="primary"
+                (click)="updateTask(task)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="deleteTask(task.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+      </div>
+    </mat-tab>
+        <!-- New tab for ChartsComponent -->
+        <mat-tab label="Task Status Chart">
+          <app-charts *ngIf="pendingTasks.length && completedTasks.length && cancelledTasks.length"
+            [pendingTasks]="pendingTasks"
+            [completedTasks]="completedTasks"
+            [cancelledTasks]="cancelledTasks"
+          ></app-charts>
+        </mat-tab>
+  </mat-tab-group>
+</div>

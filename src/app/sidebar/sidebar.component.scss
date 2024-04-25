@@ -1,0 +1,27 @@
+.example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .sidenav-open{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #ededf5;
+    height: 100vh;
+    color: #ffffff;
+
+  }
+
+  .sidenav-btn{
+    border: none;
+    background-color: #94b3f7;
+    border-radius: 2px;
+    align-items: center;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+  }
