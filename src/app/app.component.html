@@ -280,5 +280,13 @@
         </table>
       </div>
     </mat-tab>
+        <!-- New tab for ChartsComponent -->
+        <mat-tab label="Task Status Chart">
+          <app-charts *ngIf="pendingTasks.length && completedTasks.length && cancelledTasks.length"
+            [pendingTasks]="pendingTasks"
+            [completedTasks]="completedTasks"
+            [cancelledTasks]="cancelledTasks"
+          ></app-charts>
+        </mat-tab>
   </mat-tab-group>
 </div>

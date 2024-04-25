@@ -65,6 +65,7 @@ export class AppComponent implements OnInit {
         this.cancelledTasks = res.filter(
           (task: { status: string }) => task.status === 'Cancelled'
         );
+        
       },
       error: console.log,
     });

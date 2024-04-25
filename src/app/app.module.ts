@@ -27,6 +27,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { ChartsComponent } from './charts/charts.component';
 
 
 
@@ -40,7 +41,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     TaskUpdateComponent,
     NavbarComponent,
     ConfirmDialogComponent,
-    SidebarComponent
+    SidebarComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
