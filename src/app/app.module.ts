@@ -10,7 +10,6 @@ import { TaskUpdateComponent } from './task-update/task-update.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
-
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -28,9 +27,7 @@ import {MatCardModule} from '@angular/material/card';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { ChartsComponent } from './charts/charts.component';
-
-
-
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +39,8 @@ import { ChartsComponent } from './charts/charts.component';
     NavbarComponent,
     ConfirmDialogComponent,
     SidebarComponent,
-    ChartsComponent
+    ChartsComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,

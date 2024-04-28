@@ -7,6 +7,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { CoreService } from './core.service';
 import { ModalDialogService } from './modal-dialog.service';
+import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -91,15 +92,32 @@ export class AppComponent implements OnInit {
     });
   }
 
-  deleteTask(id: number) {
-    this.taskService.deleteTask(id).subscribe({
-      next: (res) => {
-        this.core.openSnackBar('Task deleted successfully');
+  // deleteTask(id: number) {
+  //   this.taskService.deleteTask(id).subscribe({
+  //     next: (res) => {
+  //       this.core.openSnackBar('Task deleted successfully');
 
-        this.getTasks();
-      },
-      error: console.log,
+  //       this.getTasks();
+  //     },
+  //     error: console.log,
+  //   });
+  // }
+
+  deleteTask(id: number){
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '300px',
     });
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === 'delete'){
+        this.taskService.deleteTask(id).subscribe({
+          next: (res)=>{
+            this.core.openSnackBar('Task Deleted Suuccessfully');
+            this.getTasks();
+          },
+          error: console.error
+        })
+      }
+    })
   }
 
   applyFilters(filters: any) {
