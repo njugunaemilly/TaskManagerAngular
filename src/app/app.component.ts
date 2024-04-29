@@ -92,17 +92,6 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // deleteTask(id: number) {
-  //   this.taskService.deleteTask(id).subscribe({
-  //     next: (res) => {
-  //       this.core.openSnackBar('Task deleted successfully');
-
-  //       this.getTasks();
-  //     },
-  //     error: console.log,
-  //   });
-  // }
-
   deleteTask(id: number){
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '300px',

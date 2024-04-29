@@ -1,10 +1,17 @@
 <div class="analytics-container">
-    <div class="chart-container">
-      <canvas #myChart></canvas>
-
-    </div>
-
-    <div>
-        <canvas #barChart></canvas>
+  <div class="chart-container">
+    <mat-card class="pie-card">
+      <div class="pie-chart-class">
+        <h2 class="chart-title">Pie Chart</h2>
+        <canvas #chartCanvas></canvas>
       </div>
+    </mat-card>
+    <mat-card>
+       <div class="bar-chart-class">
+      <h2 class="chart-title">Bar Chart</h2>
+      <canvas #chartCanvas></canvas>
+    </div>   
+    </mat-card>
+
   </div>
+</div>
