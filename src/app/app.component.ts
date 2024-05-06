@@ -8,6 +8,7 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { CoreService } from './core.service';
 import { ModalDialogService } from './modal-dialog.service';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,8 @@ export class AppComponent implements OnInit {
     'date',
     'actions',
   ];
+  tasks$ !: Observable<any[]>;
+  loading !: boolean;
   dataSource!: MatTableDataSource<any>;
   originalDataSource: MatTableDataSource<any>;
   pendingTasks: any[] = [];
@@ -41,7 +44,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTasks();
-  }
+}
+
+  
   openTasksForm() {
     const dialogRef = this.dialog.open(TaskCreateComponent);
     dialogRef.afterClosed().subscribe({
@@ -53,22 +58,17 @@ export class AppComponent implements OnInit {
     });
   }
 
+ 
   getTasks() {
-    this.taskService.getTasks().subscribe({
+    this.tasks$ = this.taskService.getTasks();
+    this.tasks$.subscribe({
       next: (res) => {
-        this.dataSource = res;
-        this.pendingTasks = res.filter(
-          (task: { status: string }) => task.status === 'Pending'
-        );
-        this.completedTasks = res.filter(
-          (task: { status: string }) => task.status === 'Completed'
-        );
-        this.cancelledTasks = res.filter(
-          (task: { status: string }) => task.status === 'Cancelled'
-        );
-        
+        this.dataSource.data = res;
+        this.pendingTasks = res.filter((task) => task.status === 'Pending');
+        this.completedTasks = res.filter((task) => task.status === 'Completed');
+        this.cancelledTasks = res.filter((task) => task.status === 'Cancelled');
       },
-      error: console.log,
+      error: console.error,
     });
   }
 
